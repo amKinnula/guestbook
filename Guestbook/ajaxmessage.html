@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Aleksi's Guestbook</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+  <body class="container">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Aleksi's Guestbook</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="/guestbook">Guestbook</a></li>
+          <li><a href="/newmessage">New Message</a></li>
+          <li class="active"><a href="#">Ajax Message</a></li>
+        </ul>
+      </div>
+    </nav>
+  <div class="jumbotron">
+    <h2>Write an AJAX message</h2>
+  </div>
+    <div>
+      <form name="myForm" onsubmit="return validateForm()" method="POST" action="/ajaxmessage" required>
+        <div class="form-group">
+          <label for="exampleUsername">Username</label>
+          <input
+            type="username"
+            class="form-control"
+            id="username"
+            aria-describedby="userNameHelp"
+            placeholder="Enter username"
+            name="username"
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleCountry">Country</label>
+          <input
+            type="country"
+            class="form-control"
+            id="country"
+            placeholder="Country"
+            name="country"
+          />
+        </div>
+        <div class="form-group">
+            <label for="exampleMessage">Message</label>
+            <input
+              type="message"
+              class="form-control"
+              id="message"
+              placeholder="Write a message"
+              name="message"
+            />
+          </div>
+        <button type="submit" id="button1" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div id="status"></div>
+    <script>
+    // Checks if the page is loaded correctly
+      window.onload = event => {
+        var button2 = document.getElementById("button1");
+
+        // When the button is clicked the data is added to HTML
+        button2.addEventListener("click", () => {
+          var username = document.getElementById("username").value;
+          var country = document.getElementById("country").value;
+          var message = document.getElementById("message").value;
+          console.log(username,country,message);
+ 
+        // Create ajax object and make it appear in the status element    
+         var xmlhttp = new XMLHttpRequest();
+         xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById("status").innerHTML = this.responseText;
+              console.log(this.responseText);
+            }
+          };
+          
+        // Send AJAX request to ajaxmessage
+          xmlhttp.open("POST", "/ajaxmessage", true);
+          // Add data to AJAX request
+          xmlhttp.setRequestHeader(
+            "Content-type",
+            "application/x-www-form-urlencoded"
+          );
+          xmlhttp.send("username=" + username + "country=" + country + "message=" + message);
+          document.getElementById("status").innerHTML = "Username: " + username + " Country: " + country + " Message: " + message
+        });
+      };    
+    </script>
+    <script>
+      function validateForm() {
+        // Checks if the form is empty
+        var x = document.forms["myForm"]["username"].value;
+        var y = document.forms["myForm"]["country"].value;
+        var z = document.forms["myForm"]["message"].value;
+        if (x == "" || x == null || y == "" || y == null ||z == "" || z == null) {
+          alert("Please fill all of the fields");
+          return false;
+        }
+      }
+    </script>
+  </body>
+</html>

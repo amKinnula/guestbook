@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aleksi's Guestbook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        function validateForm() {
+        // Checks if the form is empty
+          var x = document.forms["myForm"]["username"].value;
+          var y = document.forms["myForm"]["country"].value;
+          var z = document.forms["myForm"]["message"].value;
+          if (x == "" || x == null || y == "" || y == null ||z == "" || z == null) {
+            alert("Please fill all of the fields");
+            return false;
+          }
+        }
+        </script>
+</head>
+  <body class="container">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">Aleksi's Guestbook</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="/guestbook">Guestbook</a></li>
+            <li class="active"><a href="#">New Message</a></li>
+            <li><a href="/ajaxmessage">Ajax Message</a></li>
+          </ul>
+        </div>
+      </nav>
+    <div class="jumbotron">
+        <h2>Write a new message to the guestbook</h2>
+    </div>
+    <div>
+      <form name="myForm" onsubmit="return validateForm()" method="POST" action="/newmessage" required>
+        <div class="form-group">
+          <label for="exampleUsername">Username</label>
+          <input
+            type="username"
+            class="form-control"
+            id="username"
+            aria-describedby="userNameHelp"
+            placeholder="Enter username"
+            name="username"
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleCountry">Country</label>
+          <input
+            type="country"
+            class="form-control"
+            id="country"
+            placeholder="Country"
+            name="country"
+          />
+        </div>
+        <div class="form-group">
+            <label for="exampleMessage">Message</label>
+            <input
+              type="message"
+              class="form-control"
+              id="message"
+              placeholder="Write a message"
+              name="message"
+            />
+          </div>
+          <button id="myBtn" type="submit" value="Submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
