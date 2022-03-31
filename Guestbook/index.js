@@ -5,6 +5,10 @@ var app = express();
 // Add filesystem to the project
 var fs = require('fs');
 
+// Connects to the cloud server
+const PORT = process.env.PORT || 8081;
+var http = require("http");
+
 // Add body parser to the project
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true}));
@@ -73,8 +77,8 @@ app.get('*', function(req, res){
     res.send('Cannot find the page :(')
 });
 
-app.listen(8080, function(){
-    console.log('App listening on port http://127.0.0.1:8080/');
+app.listen(PORT, () => {
+    console.log('App listening on port ' + PORT);
 });
 
 
